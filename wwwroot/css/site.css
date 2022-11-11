@@ -1,0 +1,55 @@
+@media (min-width: 768px) {
+    html {
+        color: #ff24cc;
+        font-size: 16px;
+    }
+}
+
+html {
+    color: #ff24cc;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    background-color: #000000;
+    margin-bottom: 60px;
+    color: #ff24cc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+a {
+    color: #ff24cc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+p {
+    color: #ff24cc;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+div {
+    color: #ff24cc;
+}
+
+th {
+    color: #00ffff;
+    font-size: 28px;
+    margin: auto;
+    font-family: Chiller;
+}
+
+td {
+    color: #ff24cc;
+}
+
+thead * {
+    color: #00ffff;
+    font-size: 28px;
+    margin: auto;
+    font-family: Chiller;
+}
