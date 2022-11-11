@@ -9,10 +9,10 @@ namespace MegansMatineeX.Models
     {
         public int ID { get; set; }
 
-        [Display(Name = "Lead Actor/Actress"), StringLength(60, MinimumLength = 3), Required]
+        [Display(Name = "Lead Actor/Actress"), StringLength(60, ErrorMessage = "Name cannot be shorter than 3 characters.", MinimumLength = 3), Required]
         public string LeadActName { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Birthdate { get; set; }
 
         [Display(Name = "Actor/Actress Details"), StringLength(10000, MinimumLength = 3)]

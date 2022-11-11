@@ -14,17 +14,20 @@ namespace MegansMatineeX.Data
         {
         }
 
+        public DbSet<MegansMatineeX.Models.Movie> Movies { get; set; }
+        public DbSet<MegansMatineeX.Models.MovieCast> MovieCasts { get; set; }
         public DbSet<MegansMatineeX.Models.LeadAct> LeadActs { get; set; }
         public DbSet<MegansMatineeX.Models.Director> Directors { get; set; }
-        public DbSet<MegansMatineeX.Models.MovieCast> MovieCasts { get; set; }
-        public DbSet<MegansMatineeX.Models.Movie> Movies { get; set; }
+        
+        
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Movie>().ToTable("Movie");
-            modelBuilder.Entity<MovieCast>().ToTable("MovieCast");
-            modelBuilder.Entity<LeadAct>().ToTable("LeadAct");
-            modelBuilder.Entity<Director>().ToTable("Director");
+            modelBuilder.Entity<Movie>().ToTable(nameof(Movie))
+                .HasMany(c => c.Directors)
+                .WithMany(i => i.Movies);
+            modelBuilder.Entity<LeadAct>().ToTable(nameof(LeadAct));
+            modelBuilder.Entity<Director>().ToTable(nameof(Director));
         }
     }
 }

@@ -49,6 +49,7 @@ namespace MegansMatineeX.Models
     public class Movie
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Display(Name = "Number")]
         public int MovieID { get; set; }
 
         [StringLength(60, MinimumLength = 3), Required]
@@ -76,5 +77,6 @@ namespace MegansMatineeX.Models
         public string Review { get; set; }
 
         public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<Director> Directors { get; set; }
     }
 }
