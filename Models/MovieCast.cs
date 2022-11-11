@@ -12,6 +12,7 @@ namespace MegansMatineeX.Models
         public int MovieID { get; set; }
         public int LeadActID { get; set; }
         public int DirectorID { get; set; }
+
         [DisplayFormat(NullDisplayText = "Not Ranked")]
         public Rank? Rank { get; set; }
 

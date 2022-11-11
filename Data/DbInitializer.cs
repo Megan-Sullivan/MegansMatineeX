@@ -8,12 +8,12 @@ namespace MegansMatineeX.Data
         public static void Initialize(MegansMatineeXContext context)
         {
             
-            // Look for any students.
+            // Look for any lead actors/actresses.
             if (context.LeadActs.Any())
             {
                 return;   // DB has been seeded
             }
-
+            // Look for any directors.
             if (context.Directors.Any())
             {
                 return;   // DB has been seeded
