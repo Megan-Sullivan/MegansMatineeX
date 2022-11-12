@@ -29,7 +29,7 @@ namespace MegansMatineeX.Pages.Directors
             }
 
             Director = await _context.Directors
-                .Include(s => s.MovieCasts)
+                .Include(s => s.MovieDirectors)
                 .ThenInclude(e => e.Movie)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);

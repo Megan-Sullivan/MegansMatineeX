@@ -36,7 +36,7 @@
             @Html.DisplayFor(model => model.Director.AdditionalInfo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Director.MovieCasts)
+            @Html.DisplayNameFor(model => model.Director.MovieDirectors)
         </dt>
         <dd class="col-sm-10">
             <table class="table">
@@ -44,14 +44,14 @@
                     <th>Movie Title</th>
                     <th>Rank</th>
                 </tr>
-                @foreach (var item in Model.Director.MovieCasts)
+                @foreach (var item in Model.Director.MovieDirectors)
                 {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Movie.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Rank)
+                            @Html.DisplayFor(modelItem => item.Rank2)
                         </td>
                     </tr>
                 }

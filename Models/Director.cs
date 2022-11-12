@@ -21,7 +21,7 @@ namespace MegansMatineeX.Models
         [Display(Name = "Additional Info"), StringLength(10000, MinimumLength = 3), DataType(DataType.Url)]
         public string AdditionalInfo { get; set; }
 
-        public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<MovieDirector> MovieDirectors { get; set; }
         public ICollection<Movie> Movies { get; set; }
     }
 }

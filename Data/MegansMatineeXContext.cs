@@ -16,6 +16,7 @@ namespace MegansMatineeX.Data
 
         public DbSet<MegansMatineeX.Models.Movie> Movies { get; set; }
         public DbSet<MegansMatineeX.Models.MovieCast> MovieCasts { get; set; }
+        public DbSet<MegansMatineeX.Models.MovieDirector> MovieDirectors { get; set; }
         public DbSet<MegansMatineeX.Models.LeadAct> LeadActs { get; set; }
         public DbSet<MegansMatineeX.Models.Director> Directors { get; set; }
         

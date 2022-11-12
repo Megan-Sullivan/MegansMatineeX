@@ -231,101 +231,107 @@ namespace MegansMatineeX.Data
                         MovieID = 0001,
                         Rank = Rank.A
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 1,
-                        MovieID = 0001,
-                        Rank = Rank.A
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 1,
                         MovieID = 0002,
                         Rank = Rank.B
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 1,
-                        MovieID = 0002,
-                        Rank = Rank.B
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 2,
                         MovieID = 0003,
                         Rank = Rank.B
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 2,
-                        MovieID = 0003,
-                        Rank = Rank.B
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 3,
                         MovieID = 0004,
                         Rank = Rank.B
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 3,
-                        MovieID = 0004,
-                        Rank = Rank.B
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 4,
                         MovieID = 0005,
                         Rank = Rank.C
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 4,
-                        MovieID = 0005,
-                        Rank = Rank.C
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 5,
                         MovieID = 0006,
                         Rank = Rank.C
                     },
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 5,
-                        MovieID = 0006,
-                        Rank = Rank.C
-                    },
-                */
+                
                 new MovieCast
                     {
                         LeadActID = 6,
                         MovieID = 0007,
                         Rank = Rank.A
                     }
-                /*
-                new MovieCast
-                    {
-                        DirectorID = 6,
-                        MovieID = 0007,
-                        Rank = Rank.A
-                    }
-                */
             };
 
             context.MovieCasts.AddRange(moviecasts);
+            context.SaveChanges();
+
+            var moviedirectors = new MovieDirector[]
+            {
+
+                 new MovieDirector
+                    {
+                        DirectorID = 1,
+                        MovieID = 0001,
+                        Rank2 = Rank2.A
+                    },
+
+                 new MovieDirector
+                    {
+                        DirectorID = 1,
+                        MovieID = 0002,
+                        Rank2 = Rank2.B
+                    },
+
+                new MovieDirector
+                    {
+                        DirectorID = 2,
+                        MovieID = 0003,
+                        Rank2 = Rank2.B
+                    },
+
+                new MovieDirector
+                    {
+                        DirectorID = 3,
+                        MovieID = 0004,
+                        Rank2 = Rank2.B
+                    },
+                
+                new MovieDirector
+                    {
+                        DirectorID = 4,
+                        MovieID = 0005,
+                        Rank2 = Rank2.C
+                    },
+                
+                new MovieDirector
+                    {
+                        DirectorID = 5,
+                        MovieID = 0006,
+                        Rank2 = Rank2.C
+                    },
+                
+                new MovieDirector
+                    {
+                        DirectorID = 6,
+                        MovieID = 0007,
+                        Rank2 = Rank2.A
+                    }
+            };
+
+            context.MovieDirectors.AddRange(moviedirectors);
             context.SaveChanges();
         }
     }
