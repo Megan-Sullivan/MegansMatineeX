@@ -1,32 +1,74 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using MegansMatineeX.Data;
+using MegansMatineeX.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MegansMatineeX.Data;
-using MegansMatineeX.Models;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MegansMatineeX.Pages.Movies
 {
     public class IndexModel : PageModel
     {
-        private readonly MegansMatineeX.Data.MegansMatineeXContext _context;
+        private readonly MegansMatineeXContext _context;
+        private readonly IConfiguration Configuration;
 
-        public IndexModel(MegansMatineeX.Data.MegansMatineeXContext context)
+        public IndexModel(MegansMatineeXContext context, IConfiguration configuration)
         {
             _context = context;
+            Configuration = configuration;
         }
 
-        public IList<Movie> Movie { get;set; } = default!;
+        public string TitleSort { get; set; }
+        public string DateSort { get; set; }
+        public string CurrentFilter { get; set; }
+        public string CurrentSort { get; set; }
 
-        public async Task OnGetAsync()
+        public PaginatedList<Movie> Movies { get; set; }
+
+        public async Task OnGetAsync(string sortOrder,
+            string currentFilter, string searchString, int? pageIndex)
         {
-            if (_context.Movies != null)
+            CurrentSort = sortOrder;
+            TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
             {
-                Movie = await _context.Movies.ToListAsync();
+                pageIndex = 1;
             }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            CurrentFilter = searchString;
+
+            IQueryable<Movie> moviesIQ = from s in _context.Movies
+                                               select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                moviesIQ = moviesIQ.Where(s => s.Title.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    moviesIQ = moviesIQ.OrderByDescending(s => s.Title);
+                    break;
+                case "Date":
+                    moviesIQ = moviesIQ.OrderBy(s => s.ReleaseDate);
+                    break;
+                case "date_desc":
+                    moviesIQ = moviesIQ.OrderByDescending(s => s.ReleaseDate);
+                    break;
+                default:
+                    moviesIQ = moviesIQ.OrderBy(s => s.Title);
+                    break;
+            }
+
+            var pageSize = Configuration.GetValue("PageSize", 4);
+            Movies = await PaginatedList<Movie>.CreateAsync(
+                moviesIQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }
