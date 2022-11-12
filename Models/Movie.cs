@@ -77,6 +77,8 @@ namespace MegansMatineeX.Models
         public string Review { get; set; }
 
         public ICollection<MovieCast> MovieCasts { get; set; }
+
+        public ICollection<MovieDirector> MovieDirectors { get; set; }
         public ICollection<Director> Directors { get; set; }
     }
 }
