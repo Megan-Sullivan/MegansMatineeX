@@ -38,7 +38,7 @@
                 @Html.DisplayNameFor(model => model.Movies[0].LeadAct)
             </th>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort"
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort"
                    asp-route-currentFilter="@Model.CurrentFilter">
                     @Html.DisplayNameFor(model => model.Movies[0].ReleaseDate)
                 </a>
@@ -47,7 +47,10 @@
                 @Html.DisplayNameFor(model => model.Movies[0].WhereToWatch)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movies[0].Genre)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.GenreSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Movies[0].Genre)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Movies[0].Rating)

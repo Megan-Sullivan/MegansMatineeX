@@ -22,6 +22,8 @@ namespace MegansMatineeX.Pages.Movies
 
         public string TitleSort { get; set; }
         public string DateSort { get; set; }
+
+        public string GenreSort { get; set; }
         public string CurrentFilter { get; set; }
         public string CurrentSort { get; set; }
 
@@ -33,6 +35,7 @@ namespace MegansMatineeX.Pages.Movies
             CurrentSort = sortOrder;
             TitleSort = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            GenreSort = sortOrder == "Genre" ? "genre_desc" : "Genre";
             if (searchString != null)
             {
                 pageIndex = 1;
@@ -57,6 +60,12 @@ namespace MegansMatineeX.Pages.Movies
                     break;
                 case "Date":
                     moviesIQ = moviesIQ.OrderBy(s => s.ReleaseDate);
+                    break;
+                case "Genre":
+                    moviesIQ = moviesIQ.OrderBy(s => s.Genre);
+                    break;
+                case "genre_desc":
+                    moviesIQ = moviesIQ.OrderByDescending(s => s.Genre);
                     break;
                 case "date_desc":
                     moviesIQ = moviesIQ.OrderByDescending(s => s.ReleaseDate);
