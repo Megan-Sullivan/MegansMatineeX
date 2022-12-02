@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MegansMatineeX.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MegansMatineeX.Data
 {
-    public class MegansMatineeXContext : DbContext
+    public class MegansMatineeXContext : IdentityDbContext
     {
         public MegansMatineeXContext (DbContextOptions<MegansMatineeXContext> options)
             : base(options)
@@ -29,6 +30,8 @@ namespace MegansMatineeX.Data
                 .WithMany(i => i.Movies);
             modelBuilder.Entity<LeadAct>().ToTable(nameof(LeadAct));
             modelBuilder.Entity<Director>().ToTable(nameof(Director));
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.DependencyInjection;
+//using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using MegansMatineeX.Data;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,9 @@ builder.Services.AddDbContext<MegansMatineeXContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MegansMatineeXContext")));
 
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<MegansMatineeXContext>();
 
 var app = builder.Build();
 
@@ -37,9 +43,12 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
