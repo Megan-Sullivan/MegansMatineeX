@@ -18,8 +18,29 @@ builder.Services.AddDbContext<MegansMatineeXContext>(options =>
 
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => 
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<MegansMatineeXContext>();
+
+builder.Services.AddAuthentication()
+    .AddGitHub(options =>
+    {
+        
+        options.Scope.Add("read:user");
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/LeadActs");
+});
 
 var app = builder.Build();
 
