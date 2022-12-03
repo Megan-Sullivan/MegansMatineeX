@@ -1,15 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.DependencyInjection;
 //using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using MegansMatineeX.Data;
+using Microsoft.AspNetCore.Authorization;
+using System;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<MegansMatineeXContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MegansMatineeXContext")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MegansMatineeXContext") ??
+    throw new InvalidOperationException("Connection string 'Megan\'s Matinee' not found.")));
 
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -40,6 +45,7 @@ using (var scope = app.Services.CreateScope())
     var context = services.GetRequiredService<MegansMatineeXContext>();
     //context.Database.EnsureCreated();
     DbInitializer.Initialize(context);
+    //CreateRolesAsync(services).Wait();
 }
 
 app.UseHttpsRedirection();
