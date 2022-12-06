@@ -1,0 +1,46 @@
+﻿@page
+@model MegansMatineeX.Pages.AboutModel
+
+@{
+    ViewData["Title"] = "Movie Statistics";
+}
+
+<h2>Movie Statistics</h2>
+
+<table>
+    <tr>
+        <th>
+            Filming Start Date
+        </th>
+        <th>
+            LeadActs
+        </th>
+        <th>
+            Directors
+        </th>
+    </tr>
+
+    @foreach (var item in Model.LeadActs)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieCastDate)
+            </td>
+            <td>
+                @item.LeadActCount
+            </td>
+        </tr>
+    }
+
+    @foreach (var item in Model.Directors)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieDirectorDate)
+            </td>
+            <td>
+                @item.DirectorCount
+            </td>
+        </tr>
+    }
+</table>

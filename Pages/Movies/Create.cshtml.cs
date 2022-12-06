@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MegansMatineeX.Data;
 using MegansMatineeX.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MegansMatineeX.Pages.Movies
 {
-    public class CreateModel : PageModel
+    [AllowAnonymous]
+    public class CreateModel : ProductionNamePageModel
     {
         private readonly MegansMatineeX.Data.MegansMatineeXContext _context;
 
@@ -21,6 +23,7 @@ namespace MegansMatineeX.Pages.Movies
 
         public IActionResult OnGet()
         {
+            PopulateProductionsDropDownList(_context);
             return Page();
         }
 
@@ -31,7 +34,23 @@ namespace MegansMatineeX.Pages.Movies
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            var emptyMovie = new Movie();
+
+            if (await TryUpdateModelAsync<Movie>(
+                 emptyMovie,
+                 "movie",   // Prefix for form value.
+                 s => s.MovieID, s => s.ProductionID, s => s.Title))
+            {
+                _context.Movies.Add(emptyMovie);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+
+            // Select ProductionID if TryUpdateModelAsync fails.
+            PopulateProductionsDropDownList(_context, emptyMovie.ProductionID);
+            return Page();
+            /*
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
@@ -40,6 +59,7 @@ namespace MegansMatineeX.Pages.Movies
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+            */
         }
     }
 }

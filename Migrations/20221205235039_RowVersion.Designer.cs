@@ -4,6 +4,7 @@ using MegansMatineeX.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MegansMatineeX.Migrations
 {
     [DbContext(typeof(MegansMatineeXContext))]
-    partial class MegansMatineeXContextModelSnapshot : ModelSnapshot
+    [Migration("20221205235039_RowVersion")]
+    partial class RowVersion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,6 +91,9 @@ namespace MegansMatineeX.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<int?>("DirectorID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Genre")
                         .HasColumnType("int");
 
@@ -119,6 +124,8 @@ namespace MegansMatineeX.Migrations
                         .HasColumnType("nvarchar(60)");
 
                     b.HasKey("MovieID");
+
+                    b.HasIndex("DirectorID");
 
                     b.HasIndex("ProductionID");
 
@@ -462,6 +469,10 @@ namespace MegansMatineeX.Migrations
 
             modelBuilder.Entity("MegansMatineeX.Models.Movie", b =>
                 {
+                    b.HasOne("MegansMatineeX.Models.Director", null)
+                        .WithMany("Movies")
+                        .HasForeignKey("DirectorID");
+
                     b.HasOne("MegansMatineeX.Models.Production", "Production")
                         .WithMany("Movies")
                         .HasForeignKey("ProductionID")
@@ -598,6 +609,8 @@ namespace MegansMatineeX.Migrations
             modelBuilder.Entity("MegansMatineeX.Models.Director", b =>
                 {
                     b.Navigation("MovieDirectors");
+
+                    b.Navigation("Movies");
                 });
 
             modelBuilder.Entity("MegansMatineeX.Models.LeadAct", b =>

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MegansMatineeX.Data;
 using MegansMatineeX.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MegansMatineeX.Pages.Movies
 {
+    [AllowAnonymous]
     public class DeleteModel : PageModel
     {
         private readonly MegansMatineeX.Data.MegansMatineeXContext _context;
@@ -29,15 +31,16 @@ namespace MegansMatineeX.Pages.Movies
                 return NotFound();
             }
 
-            var movie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieID == id);
+            //var movie = await _context.Movies.FirstOrDefaultAsync(m => m.MovieID == id);
 
-            if (movie == null)
+            Movie = await _context.Movies
+                .AsNoTracking()
+                .Include(c => c.Production)
+                .FirstOrDefaultAsync(m => m.MovieID == id);
+
+            if (Movie == null)
             {
                 return NotFound();
-            }
-            else 
-            {
-                Movie = movie;
             }
             return Page();
         }

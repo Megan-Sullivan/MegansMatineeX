@@ -57,6 +57,14 @@
                 <span asp-validation-for="Movie.Review" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Movie.Production" class="control-label"></label>
+                <select asp-for="Movie.ProductionID" class="form-control"
+                        asp-items="@Model.ProductionNameSL">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="Movie.ProductionID" class="text-danger" />
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

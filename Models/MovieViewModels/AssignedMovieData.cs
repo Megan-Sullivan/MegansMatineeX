@@ -1,4 +1,5 @@
-﻿namespace MegansMatineeX.Models.MovieViewModels
+﻿
+namespace MegansMatineeX.Models.MovieViewModels
 {
     public class AssignedMovieData
     {

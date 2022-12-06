@@ -58,6 +58,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Movies[0].Review)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Movies[0].Production)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -85,9 +88,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
-                <td>
-                    @Html.Raw(item.Review)
-                </td>
+            <td>
+                @Html.Raw(item.Review)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Production.Name)
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.MovieID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.MovieID">Details</a> |

@@ -1,5 +1,6 @@
 ﻿using MegansMatineeX.Data;
 using MegansMatineeX.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MegansMatineeX.Pages.Movies
 {
+    [AllowAnonymous]
     public class IndexModel : PageModel
     {
         private readonly MegansMatineeXContext _context;
@@ -19,7 +21,17 @@ namespace MegansMatineeX.Pages.Movies
             _context = context;
             Configuration = configuration;
         }
+        /*
+        public IList<Movie> Movies { get; set; }
 
+        public async Task OnGetAsync()
+        {
+            Movies = await _context.Movies
+                .Include(c => c.Production)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        */
         public string TitleSort { get; set; }
         public string DateSort { get; set; }
 

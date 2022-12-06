@@ -4,6 +4,7 @@ using MegansMatineeX.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MegansMatineeX.Migrations
 {
     [DbContext(typeof(MegansMatineeXContext))]
-    partial class MegansMatineeXContextModelSnapshot : ModelSnapshot
+    [Migration("20221205002409_IHaveNoIdea")]
+    partial class IHaveNoIdea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,21 @@ namespace MegansMatineeX.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("DirectorMovie", b =>
+                {
+                    b.Property<int>("DirectorsID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MoviesMovieID")
+                        .HasColumnType("int");
+
+                    b.HasKey("DirectorsID", "MoviesMovieID");
+
+                    b.HasIndex("MoviesMovieID");
+
+                    b.ToTable("DirectorMovie");
+                });
 
             modelBuilder.Entity("MegansMatineeX.Models.Director", b =>
                 {
@@ -86,6 +103,7 @@ namespace MegansMatineeX.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Director")
+                        .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
@@ -93,6 +111,7 @@ namespace MegansMatineeX.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("LeadAct")
+                        .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
@@ -206,11 +225,6 @@ namespace MegansMatineeX.Migrations
 
                     b.Property<decimal>("Budget")
                         .HasColumnType("money");
-
-                    b.Property<byte[]>("ConcurrencyToken")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -458,6 +472,21 @@ namespace MegansMatineeX.Migrations
                     b.HasIndex("ProducersID");
 
                     b.ToTable("MovieProducer");
+                });
+
+            modelBuilder.Entity("DirectorMovie", b =>
+                {
+                    b.HasOne("MegansMatineeX.Models.Director", null)
+                        .WithMany()
+                        .HasForeignKey("DirectorsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MegansMatineeX.Models.Movie", null)
+                        .WithMany()
+                        .HasForeignKey("MoviesMovieID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MegansMatineeX.Models.Movie", b =>

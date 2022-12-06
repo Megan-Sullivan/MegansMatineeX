@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// First of two files replacing Enrollment
+using System.ComponentModel.DataAnnotations;
 
 namespace MegansMatineeX.Models
 {

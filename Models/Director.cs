@@ -1,4 +1,5 @@
-﻿using System;
+﻿// First of two files replacing Student
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,6 +23,6 @@ namespace MegansMatineeX.Models
         public string AdditionalInfo { get; set; }
 
         public ICollection<MovieDirector> MovieDirectors { get; set; }
-        public ICollection<Movie> Movies { get; set; }
+        //public ICollection<Movie> Movies { get; set; }
     }
 }

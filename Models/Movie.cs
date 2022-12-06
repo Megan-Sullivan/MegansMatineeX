@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Replaces Course
+using Microsoft.CodeAnalysis;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -55,10 +57,10 @@ namespace MegansMatineeX.Models
         [StringLength(60, MinimumLength = 3), Required]
         public string Title { get; set; }
 
-        [StringLength(60, MinimumLength = 3), Required]
+        [StringLength(60, MinimumLength = 3)]
         public string Director { get; set; }
 
-        [Display(Name = "Lead Actor/Actress"), StringLength(60, MinimumLength = 3), Required]
+        [Display(Name = "Lead Actor/Actress"), StringLength(60, MinimumLength = 3)]
         public string LeadAct { get; set; }
 
         [Display(Name = "Release Date"), DataType(DataType.Date)]
@@ -76,9 +78,14 @@ namespace MegansMatineeX.Models
         [StringLength(10000, MinimumLength = 3)]
         public string Review { get; set; }
 
+        // Replacing Department
+        public int ProductionID { get; set; }
+        public Production Production { get; set; } 
+
         public ICollection<MovieCast> MovieCasts { get; set; }
 
         public ICollection<MovieDirector> MovieDirectors { get; set; }
-        public ICollection<Director> Directors { get; set; }
+        //public ICollection<Director> Directors { get; set; }
+        public ICollection<Producer> Producers { get; set; }
     }
 }
